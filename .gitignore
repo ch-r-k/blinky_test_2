@@ -31,6 +31,9 @@
 *.out
 *.app
 
+#
+.cache 
+
 # build folder
 build
 
