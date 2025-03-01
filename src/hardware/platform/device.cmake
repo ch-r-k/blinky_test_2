@@ -1,13 +1,17 @@
 set(ARCH_FLAGS 
     -mthumb
-    -mcpu=cortex-m4
+    -mcpu=cortex-m0plus
 )
 
 set(FEATURE_FLAGS
+    -ffunction-sections
+    -fdata-sections
+    -fno-exceptions
+    -fno-rtti
 )
 
 set(DEVICE_DEFINES
-    STM32L476xx
+    PICO_RP2040
 )
 
 add_compile_definitions(${DEVICE_DEFINES})

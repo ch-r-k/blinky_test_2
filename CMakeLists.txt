@@ -2,7 +2,7 @@
 
 cmake_minimum_required (VERSION 3.17)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/arm_setup/cmake")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/board_specific/stm32_l4")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/src/hardware/platform")
 
 set(CMAKE_TOOLCHAIN_FILE ./arm_setup/cmake/arm-gcc-toolchain.cmake)
 set(PROJECT blinky)
@@ -30,7 +30,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel"
 endif()
 
 add_subdirectory(3d_party EXCLUDE_FROM_ALL)
-add_subdirectory(board_specific)
 
 set(INCLUDE_DIRS
     3d_party/cmsis_device_stm_l4/Include
@@ -68,9 +67,15 @@ add_executable( ${PROJECT}
 
 target_include_directories(${PROJECT} PRIVATE include)
 
-target_link_libraries(${PROJECT} PRIVATE stm32)
+#target_link_libraries(${PROJECT} PRIVATE stm32)
 
-target_linker_script(${PROJECT} "${CMAKE_CURRENT_LIST_DIR}/board_specific/stm32_l4/blinky.ld")
+target_link_libraries(${PROJECT} PRIVATE pico)
+
+target_link_options(${PROJECT} PRIVATE "-L${CMAKE_CURRENT_LIST_DIR}/src/hardware/linker")
+
+target_linker_script(${PROJECT} 
+    "${CMAKE_CURRENT_LIST_DIR}/src/hardware/linker/linker.ld"
+)
 
 set(WARNINGS
     all
