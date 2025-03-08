@@ -67,23 +67,22 @@ add_executable( ${PROJECT}
 
 target_include_directories(${PROJECT} PRIVATE include)
 
-#target_link_libraries(${PROJECT} PRIVATE stm32)
+# target_link_libraries(${PROJECT} PRIVATE stm32)  # You can uncomment this if you need to link with STM32-specific libraries
 
 target_link_libraries(${PROJECT} PRIVATE pico)
 
 target_link_options(${PROJECT} PRIVATE "-L${CMAKE_CURRENT_LIST_DIR}/src/hardware/linker")
-
 target_linker_script(${PROJECT} 
     "${CMAKE_CURRENT_LIST_DIR}/src/hardware/linker/linker.ld"
 )
 
 set(WARNINGS
     all
-	extra
-	maybe-uninitialized
-	strict-overflow=2
-	switch
-	write-strings
+    extra
+    maybe-uninitialized
+    strict-overflow=2
+    switch
+    write-strings
 )
 
 list(TRANSFORM WARNINGS PREPEND "-W")

@@ -67,6 +67,9 @@ set(INCLUDE_DIRS_PICO
     pico_sdk/src/rp2_common/pico_sync/include
     pico_sdk/src/rp2_common/pico_time_adapter/include
     pico_sdk/src/rp2_common/pico_util/include
+    pico_sdk/src/rp2_common/pico_bootrom
+    pico_sdk/src/rp2_common/pico_bootrom/include
+    pico_sdk/src/rp2040/boot_stage2/asminclude
     pico_sdk/src/rp2040/boot_stage2/include
     pico_sdk/src/rp2040/hardware_regs/include
     pico_sdk/src/rp2040/hardware_structs/include
@@ -75,16 +78,67 @@ set(INCLUDE_DIRS_PICO
 )
 
 set(SOURCE_PICO
+    pico_sdk/src/rp2_common/hardware_irq/irq_handler_chain.S
+    pico_sdk/src/rp2_common/hardware_divider/divider.S
+    pico_sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S
+    pico_sdk/src/rp2_common/pico_divider/divider_hardware.S
+    pico_sdk/src/rp2_common/pico_double/double_aeabi_rp2040.S
+    pico_sdk/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S
+    pico_sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
+    pico_sdk/src/rp2_common/pico_float/float_aeabi_rp2040.S
+    pico_sdk/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S
+    pico_sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S
+    pico_sdk/src/rp2_common/pico_crt0/crt0.S
+    pico_sdk/src/rp2040/boot_stage2/compile_time_choice.S
+
     pico_sdk/src/rp2_common/pico_stdlib/stdlib.c
-    pico_sdk/src/rp2_common/pico_platform_panic/panic.c
     pico_sdk/src/rp2_common/hardware_gpio/gpio.c
-    pico_sdk/src/rp2_common/hardware_sync/sync.c
     pico_sdk/src/rp2040/pico_platform/platform.c
+    pico_sdk/src/rp2_common/pico_platform_panic/panic.c
     pico_sdk/src/common/hardware_claim/claim.c
+    pico_sdk/src/rp2_common/hardware_sync/sync.c
+    pico_sdk/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c
+    pico_sdk/src/rp2_common/hardware_irq/irq.c
+    pico_sdk/src/common/pico_sync/sem.c
+    pico_sdk/src/common/pico_sync/lock_core.c
+    pico_sdk/src/common/pico_sync/mutex.c
+    pico_sdk/src/common/pico_sync/critical_section.c
+    pico_sdk/src/common/pico_time/time.c
+    pico_sdk/src/common/pico_time/timeout_helper.c
+    pico_sdk/src/rp2_common/hardware_timer/timer.c
+    pico_sdk/src/common/pico_util/datetime.c
+    pico_sdk/src/common/pico_util/pheap.c
+    pico_sdk/src/common/pico_util/queue.c
+    pico_sdk/src/rp2_common/hardware_uart/uart.c
+    pico_sdk/src/rp2_common/hardware_clocks/clocks.c
+    pico_sdk/src/rp2_common/hardware_pll/pll.c
+    pico_sdk/src/rp2_common/hardware_vreg/vreg.c
+    pico_sdk/src/rp2_common/hardware_watchdog/watchdog.c
+    pico_sdk/src/rp2_common/hardware_ticks/ticks.c
+    pico_sdk/src/rp2_common/pico_bootrom/bootrom.c
+    pico_sdk/src/rp2_common/pico_bootrom/bootrom_lock.c
+    pico_sdk/src/rp2_common/hardware_boot_lock/boot_lock.c
+    pico_sdk/src/rp2_common/pico_flash/flash.c
+    pico_sdk/src/rp2_common/hardware_xosc/xosc.c
+    pico_sdk/src/rp2_common/pico_runtime/runtime.c
+    pico_sdk/src/rp2_common/pico_runtime_init/runtime_init.c
+    pico_sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c
+    pico_sdk/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c
+    pico_sdk/src/rp2_common/pico_double/double_init_rom_rp2040.c
+    pico_sdk/src/rp2_common/pico_double/double_math.c
+    pico_sdk/src/rp2_common/pico_float/float_init_rom_rp2040.c
+    pico_sdk/src/rp2_common/pico_float/float_math.c
+    pico_sdk/src/rp2_common/pico_malloc/malloc.c
+    pico_sdk/src/rp2_common/pico_atomic/atomic.c
+    pico_sdk/src/rp2_common/pico_standard_binary_info/standard_binary_info.c
+    pico_sdk/src/rp2_common/pico_printf/printf.c
+    pico_sdk/src/rp2_common/pico_clib_interface/newlib_interface.c
+    pico_sdk/src/rp2_common/pico_stdio/stdio.c
+    pico_sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c
 )
 
 set(DEFINITIONS_PICO
-    LIB_BOOT_STAGE2_HEADERS=0
+    LIB_BOOT_STAGE2_HEADERS=1
     LIB_PICO_ATOMIC=1
     LIB_PICO_BIT_OPS=1
     LIB_PICO_BIT_OPS_PICO=1
