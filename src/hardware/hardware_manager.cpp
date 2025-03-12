@@ -1,4 +1,5 @@
 #include "hardware_manager.hpp"
+#include "output_pin.hpp"
 
 uint8_t __attribute__((section(".boot2"))) boot2LoaderDatap[256] = {
     0x00, 0xb5, 0x32, 0x4b, 0x21, 0x20, 0x58, 0x60, 0x98, 0x68, 0x02, 0x21,
@@ -26,11 +27,9 @@ uint8_t __attribute__((section(".boot2"))) boot2LoaderDatap[256] = {
 
 HardwareManager::HardwareManager()
 {
-    // Hal init
-    // HAL_Init();
-
-    // GPIO Ports Clock Enable
-    //__HAL_RCC_GPIOA_CLK_ENABLE();
+    ledPin.configure(OutputPin::Port::NONE, 25, OutputPin::Mode::GPIO_OUT,
+                     OutputPin::Pull::DOWN, OutputPin::Speed::NONE,
+                     OutputPin::Function::SIO);
 }
 
 HardwareManager::~HardwareManager() {}

@@ -7,7 +7,6 @@ class HardwareManager
 {
    private:
     OutputPin ledPin;
-    OutputPin TEST;
 
    public:
     HardwareManager();
