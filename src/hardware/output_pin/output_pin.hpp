@@ -9,27 +9,27 @@ class OutputPin : public IOutputPin
    public:
     enum class Port : uint8_t
     {
-  
+
     };
 
     enum class Pin : uint16_t
     {
-       
+
     };
 
     enum class Mode : uint8_t
     {
-   
+
     };
 
     enum class Pull : uint8_t
     {
-       
+
     };
 
     enum class Speed : uint8_t
     {
-    
+
     };
 
    private:
