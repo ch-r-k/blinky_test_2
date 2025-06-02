@@ -7,7 +7,6 @@ set(FEATURE_FLAGS
     -ffunction-sections
     -fdata-sections
     -fno-exceptions
-    -fno-rtti
 )
 
 set(DEVICE_DEFINES
@@ -32,5 +31,5 @@ list(JOIN EXE_LINKER_FLAGS_LIST " " EXE_LINKER_FLAGS)
 
 string(APPEND CMAKE_ASM_FLAGS " ${ASM_FLAGS}")
 string(APPEND CMAKE_C_FLAGS " ${COMPILE_FLAGS}")
-string(APPEND CMAKE_CXX_FLAGS " ${COMPILE_FLAGS}")
+string(APPEND CMAKE_CXX_FLAGS " ${COMPILE_FLAGS} -fno-rtti")
 string(APPEND CMAKE_EXE_LINKER_FLAGS " ${EXE_LINKER_FLAGS}")

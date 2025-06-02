@@ -19,6 +19,7 @@
 add_library(pico OBJECT)
 
 set(INCLUDE_DIRS_PICO
+    3d_party/config
     pico_sdk/src/boards/include
     pico_sdk/src/common/boot_picoboot_headers/include
     pico_sdk/src/common/boot_picobin_headers/include
