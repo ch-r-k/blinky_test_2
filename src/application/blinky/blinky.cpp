@@ -30,9 +30,16 @@ void Blinky::run()
     for(;;)
     {
         userIndication->reset();
-        //busyWaiting(100);
+        for(int it=0; it< 1000;it ++)
+        {
+            volatile int temp;
+            temp ++; 
+        }
         userIndication->set();
-        //busyWaiting(100);
+        {
+            volatile int temp;
+            temp ++; 
+        }
     }
 }
 
