@@ -41,4 +41,3 @@ build
 jlink_ip.cmake
 
 .vscode
-.devcontainer
