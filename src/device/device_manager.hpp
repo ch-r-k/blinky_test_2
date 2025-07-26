@@ -10,7 +10,7 @@ class DeviceManager
     UserIndication userIndication;
 
    public:
-    DeviceManager(HardwareManager& hardwareManager);
+    DeviceManager(HardwareManager& hardware_manager);
     ~DeviceManager() = default;
     UserIndication& getUserIndication();
 };

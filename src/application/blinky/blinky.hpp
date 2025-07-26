@@ -5,9 +5,9 @@
 #ifndef BLINKY_HPP_
 #define BLINKY_HPP_
 
-#include "device/user_indication/i_user_indication.hpp"
+class IUserIndication;
 
-namespace APP
+namespace app
 {
 class Blinky
 {
@@ -16,10 +16,10 @@ class Blinky
 
    public:
     Blinky();
-    void setUserIndication(IUserIndication& initUserIndication);
+    void setUserIndication(IUserIndication& init_user_indication);
     void run();
 };
 
-}  // namespace APP
+}  // namespace app
 
 #endif  // BLINKY_HPP_

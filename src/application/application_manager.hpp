@@ -7,10 +7,10 @@
 class ApplicationManager
 {
    private:
-    APP::Blinky blinky;
+    app::Blinky blinky;
 
    public:
-    ApplicationManager(DeviceManager& deviceManager);
+    ApplicationManager(DeviceManager& device_manager);
     ~ApplicationManager();
 
     void start();

@@ -8,6 +8,7 @@
 //! @brief Blinky example
 //!
 #include "blinky.hpp"
+#include "device/user_indication/i_user_indication.hpp"
 #include <common.hpp>
 
 // unnamed namespace for local definitions with internal linkage
@@ -17,7 +18,7 @@ namespace
 
 }  // unnamed namespace
 
-namespace APP
+namespace app
 {
 //............................................................................
 Blinky::Blinky()
@@ -27,27 +28,27 @@ Blinky::Blinky()
 
 void Blinky::run()
 {
-    for(;;)
+    for (;;)
     {
         userIndication->reset();
-        for(int it=0; it< 1000000;it ++)
+        for (int it = 0; it < 1000000; it++)
         {
             volatile int temp;
-            temp ++; 
+            temp++;
         }
         userIndication->set();
-        for(int it=0; it< 1000000;it ++)
+        for (int it = 0; it < 1000000; it++)
         {
             volatile int temp;
-            temp ++; 
+            temp++;
         }
     }
 }
 
 //............................................................................
-void Blinky::setUserIndication(IUserIndication& initUserIndication)
+void Blinky::setUserIndication(IUserIndication& init_user_indication)
 {
-    userIndication = &initUserIndication;
+    userIndication = &init_user_indication;
 }
 
-}  // namespace APP
+}  // namespace app

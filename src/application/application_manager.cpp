@@ -1,13 +1,10 @@
 #include "application_manager.hpp"
 
-ApplicationManager::ApplicationManager(DeviceManager& deviceManager)
+ApplicationManager::ApplicationManager(DeviceManager& device_manager)
 {
-    blinky.setUserIndication(deviceManager.getUserIndication());
+    blinky.setUserIndication(device_manager.getUserIndication());
 }
 
 ApplicationManager::~ApplicationManager() {}
 
-void ApplicationManager::start()
-{
-    blinky.run();
-}
+void ApplicationManager::start() { blinky.run(); }
