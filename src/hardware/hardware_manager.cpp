@@ -1,5 +1,4 @@
 #include "hardware_manager.hpp"
-#include "output_pin.hpp"
 
 uint8_t __attribute__((section(".boot2"))) boot2LoaderDatap[256] = {
     0x00, 0xb5, 0x32, 0x4b, 0x21, 0x20, 0x58, 0x60, 0x98, 0x68, 0x02, 0x21,
@@ -26,10 +25,9 @@ uint8_t __attribute__((section(".boot2"))) boot2LoaderDatap[256] = {
     0x74, 0xb2, 0x4e, 0x7a};
 
 HardwareManager::HardwareManager()
-    : ledPin(OutputPin::Port::NONE, 25, OutputPin::Mode::GPIO_OUT,
-             OutputPin::Pull::DOWN, OutputPin::Speed::NONE,
-             OutputPin::Function::SIO)
+    : ledPin(GpioPin::Port::NONE, 25, GpioPin::Mode::GPIO_OUT,
+             GpioPin::Pull::DOWN, GpioPin::Speed::NONE, GpioPin::Function::SIO)
 {
 }
 
-OutputPin& HardwareManager::getLedPin() { return ledPin; }
+GpioPin& HardwareManager::getLedPin() { return ledPin; }

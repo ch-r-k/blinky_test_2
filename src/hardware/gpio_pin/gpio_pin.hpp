@@ -1,38 +1,38 @@
-#ifndef OUTPUT_PIN_HPP
-#define OUTPUT_PIN_HPP
+#ifndef GPIO_PIN_HPP
+#define GPIO_PIN_HPP
 
-#include <stdint.h>
-#include "i_output_pin.hpp"
+#include <cstdint>
+#include "hardware_abstraction/gpio_pin/i_gpio_pin.hpp"
 
 #include "hardware/gpio.h"
 
-class OutputPin : public IOutputPin
+class GpioPin : public IGpioPin
 {
    public:
-    enum class Port : uint8_t
+    enum class Port : std::uint8_t
     {
         NONE = 0
     };
 
-    enum class Mode : uint8_t
+    enum class Mode : std::uint8_t
     {
         GPIO_OUT = 1u,
         GPIO_IN = 0u
     };
 
-    enum class Pull : uint8_t
+    enum class Pull : std::uint8_t
     {
         NONE = 0,
         UP = 1,
         DOWN = 2
     };
 
-    enum class Speed : uint8_t
+    enum class Speed : std::uint8_t
     {
         NONE = 0
     };
 
-    enum class Function : uint8_t
+    enum class Function : std::uint8_t
     {
         XIP = 0,
         SPI = 1,
@@ -49,20 +49,21 @@ class OutputPin : public IOutputPin
 
    private:
     Port port;
-    uint8_t pin;
+    std::uint8_t pin;
     Mode mode;
     Pull pull;
     Speed speed;
     Function function;
 
    public:
-    OutputPin(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
-              Speed initSpeed, Function initFunction);
-    ~OutputPin() = default;
+    GpioPin(Port initPort, std::uint8_t initPin, Mode initMode, Pull initPull,
+            Speed initSpeed, Function initFunction);
+    ~GpioPin() = default;
     void configure(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
                    Speed initSpeed, Function initFunction);
     void set() override;
     void reset() override;
+    bool get() override;
 };
 
-#endif  // OUTPUT_PIN_HPP
+#endif  // GPIO_PIN_HPP

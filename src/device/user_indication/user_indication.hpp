@@ -2,20 +2,20 @@
 #define USER_INDICATION_HPP
 
 #include "i_user_indication.hpp"
-#include "i_output_pin.hpp"
+#include "hardware_abstraction/gpio_pin/i_gpio_pin.hpp"
 
 class UserIndication : public IUserIndication
 {
    private:
-    IOutputPin* outputPin = nullptr;
+    IGpioPin* outputPin = nullptr;
 
    public:
-    UserIndication(IOutputPin& initOutputPin);
+    UserIndication(IGpioPin& initOutputPin);
     ~UserIndication() = default;
 
     void set() override;
     void reset() override;
-    void setOutputPin(IOutputPin& initOutputPin);
+    void setOutputPin(IGpioPin& initOutputPin);
 };
 
 #endif  // USER_INDICATION_HPP

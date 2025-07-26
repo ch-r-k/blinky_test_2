@@ -2,7 +2,7 @@
 #define APPLICATION_MANAGER_HPP
 
 #include "blinky/blinky.hpp"
-#include "device_manager.hpp"
+#include "device/device_manager.hpp"
 
 class ApplicationManager
 {

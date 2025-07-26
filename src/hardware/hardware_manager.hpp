@@ -1,18 +1,18 @@
 #ifndef HARDWARE_MANAGER_HPP
 #define HARDWARE_MANAGER_HPP
 
-#include "output_pin/output_pin.hpp"
+#include "hardware/gpio_pin/gpio_pin.hpp"
 
 class HardwareManager
 {
    private:
-    OutputPin ledPin;
+    GpioPin ledPin;
 
    public:
     HardwareManager();
     ~HardwareManager() = default;
     void run();
-    OutputPin& getLedPin();
+    GpioPin& getLedPin();
 };
 
 #endif  // HARDWARE_MANAGER_HPP

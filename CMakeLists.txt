@@ -36,11 +36,6 @@ set(INCLUDE_DIRS
     3d_party/cmsis_5/CMSIS/Core/Include
     3d_party/stm32l4xx_hal_driver/Inc
     src
-    src/application
-    src/device
-    src/device/user_indication
-    src/hardware
-    src/hardware/output_pin
     src/_common
 )
 
@@ -57,7 +52,7 @@ set(APP_CPP_SRCS
     src/device/device_manager.cpp
     src/device/user_indication/user_indication.cpp
     src/hardware/hardware_manager.cpp
-    src/hardware/output_pin/output_pin.cpp
+    src/hardware/gpio_pin/gpio_pin.cpp
 )
 
 include_directories(${INCLUDE_DIRS})

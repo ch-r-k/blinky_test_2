@@ -1,15 +1,15 @@
-#include "output_pin.hpp"
-#include <stdint.h>
+#include "gpio_pin.hpp"
+#include <cstdint>
 #include "common.hpp"
 
-OutputPin::OutputPin(Port initPort, uint8_t initPin, Mode initMode,
-                     Pull initPull, Speed initSpeed, Function initFunction)
+GpioPin::GpioPin(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
+                 Speed initSpeed, Function initFunction)
 {
     configure(initPort, initPin, initMode, initPull, initSpeed, initFunction);
 }
 
-void OutputPin::configure(Port initPort, uint8_t initPin, Mode initMode,
-                          Pull initPull, Speed initSpeed, Function initFunction)
+void GpioPin::configure(Port initPort, uint8_t initPin, Mode initMode,
+                        Pull initPull, Speed initSpeed, Function initFunction)
 {
     UNUSED(initPort);
     UNUSED(initSpeed);
@@ -39,6 +39,8 @@ void OutputPin::configure(Port initPort, uint8_t initPin, Mode initMode,
                       static_cast<gpio_function_t>(initFunction));
 }
 
-void OutputPin::set() { gpio_put(static_cast<uint8_t>(pin), 1); }
+void GpioPin::set() { gpio_put(static_cast<uint8_t>(pin), 1); }
 
-void OutputPin::reset() { gpio_put(static_cast<uint8_t>(pin), 0); }
+void GpioPin::reset() { gpio_put(static_cast<uint8_t>(pin), 0); }
+
+bool GpioPin::get() { return gpio_get(static_cast<uint8_t>(pin)); }
