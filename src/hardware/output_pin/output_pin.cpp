@@ -2,9 +2,11 @@
 #include <stdint.h>
 #include "common.hpp"
 
-OutputPin::OutputPin() {}
-
-OutputPin::~OutputPin() {}
+OutputPin::OutputPin(Port initPort, uint8_t initPin, Mode initMode,
+                     Pull initPull, Speed initSpeed, Function initFunction)
+{
+    configure(initPort, initPin, initMode, initPull, initSpeed, initFunction);
+}
 
 void OutputPin::configure(Port initPort, uint8_t initPin, Mode initMode,
                           Pull initPull, Speed initSpeed, Function initFunction)

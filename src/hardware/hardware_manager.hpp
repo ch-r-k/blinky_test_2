@@ -10,7 +10,7 @@ class HardwareManager
 
    public:
     HardwareManager();
-    ~HardwareManager();
+    ~HardwareManager() = default;
     void run();
     OutputPin& getLedPin();
 };

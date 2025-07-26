@@ -56,8 +56,9 @@ class OutputPin : public IOutputPin
     Function function;
 
    public:
-    OutputPin();
-    ~OutputPin();
+    OutputPin(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
+              Speed initSpeed, Function initFunction);
+    ~OutputPin() = default;
     void configure(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
                    Speed initSpeed, Function initFunction);
     void set() override;

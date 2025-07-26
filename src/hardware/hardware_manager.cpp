@@ -26,12 +26,10 @@ uint8_t __attribute__((section(".boot2"))) boot2LoaderDatap[256] = {
     0x74, 0xb2, 0x4e, 0x7a};
 
 HardwareManager::HardwareManager()
+    : ledPin(OutputPin::Port::NONE, 25, OutputPin::Mode::GPIO_OUT,
+             OutputPin::Pull::DOWN, OutputPin::Speed::NONE,
+             OutputPin::Function::SIO)
 {
-    ledPin.configure(OutputPin::Port::NONE, 25, OutputPin::Mode::GPIO_OUT,
-                     OutputPin::Pull::DOWN, OutputPin::Speed::NONE,
-                     OutputPin::Function::SIO);
 }
-
-HardwareManager::~HardwareManager() {}
 
 OutputPin& HardwareManager::getLedPin() { return ledPin; }

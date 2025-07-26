@@ -6,7 +6,7 @@
 //............................................................................
 int main()
 {
-    SystemManager systemManager;
+    static SystemManager systemManager;
 
     systemManager.run();
 }
