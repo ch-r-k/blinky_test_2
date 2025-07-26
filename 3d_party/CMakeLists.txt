@@ -19,7 +19,7 @@
 add_library(pico OBJECT)
 
 set(INCLUDE_DIRS_PICO
-    3d_party/config
+    pico_config/config
     pico_sdk/src/boards/include
     pico_sdk/src/common/boot_picoboot_headers/include
     pico_sdk/src/common/boot_picobin_headers/include
@@ -195,4 +195,5 @@ set(DEFINITIONS_PICO
 
 target_include_directories(pico PUBLIC ${INCLUDE_DIRS_PICO})
 target_sources(pico PRIVATE ${SOURCE_PICO})
+target_compile_options(pico PRIVATE "-Wno-return-type")
 target_compile_definitions(pico PUBLIC ${DEFINITIONS_PICO})

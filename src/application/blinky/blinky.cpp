@@ -30,12 +30,13 @@ void Blinky::run()
     for(;;)
     {
         userIndication->reset();
-        for(int it=0; it< 1000;it ++)
+        for(int it=0; it< 1000000;it ++)
         {
             volatile int temp;
             temp ++; 
         }
         userIndication->set();
+        for(int it=0; it< 1000000;it ++)
         {
             volatile int temp;
             temp ++; 
