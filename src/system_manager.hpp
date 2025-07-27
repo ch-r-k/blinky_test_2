@@ -3,7 +3,7 @@
 
 #include "application/application_manager.hpp"
 #include "device/device_manager.hpp"
-#include "hardware/hardware_manager.hpp"
+#include "hardware_rp2040/hardware_manager.hpp"
 
 class SystemManager
 {

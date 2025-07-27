@@ -2,6 +2,8 @@
 #include <cstdint>
 #include "common.hpp"
 
+namespace hardware_layer
+{
 GpioPin::GpioPin(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
                  Speed initSpeed, Function initFunction)
 {
@@ -44,3 +46,5 @@ void GpioPin::set() { gpio_put(static_cast<uint8_t>(pin), 1); }
 void GpioPin::reset() { gpio_put(static_cast<uint8_t>(pin), 0); }
 
 bool GpioPin::get() { return gpio_get(static_cast<uint8_t>(pin)); }
+
+}  // namespace hardware_layer

@@ -2,7 +2,7 @@
 
 cmake_minimum_required (VERSION 3.17)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/arm_setup/cmake")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/src/hardware/platform")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/platform")
 
 set(CMAKE_TOOLCHAIN_FILE ./arm_setup/cmake/arm-gcc-toolchain.cmake)
 set(PROJECT blinky)
@@ -51,8 +51,8 @@ set(APP_CPP_SRCS
     src/application/blinky/blinky.cpp
     src/device/device_manager.cpp
     src/device/user_indication/user_indication.cpp
-    src/hardware/hardware_manager.cpp
-    src/hardware/gpio_pin/gpio_pin.cpp
+    src/hardware_rp2040/hardware_manager.cpp
+    src/hardware_rp2040/gpio_pin/gpio_pin.cpp
 )
 
 include_directories(${INCLUDE_DIRS})
@@ -66,9 +66,9 @@ target_include_directories(${PROJECT} PRIVATE include)
 
 target_link_libraries(${PROJECT} PRIVATE pico)
 
-target_link_options(${PROJECT} PRIVATE "-L${CMAKE_CURRENT_LIST_DIR}/src/hardware/linker")
+target_link_options(${PROJECT} PRIVATE "-L${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/linker")
 target_linker_script(${PROJECT} 
-    "${CMAKE_CURRENT_LIST_DIR}/src/hardware/linker/linker.ld"
+    "${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/linker/linker.ld"
 )
 
 set(WARNINGS

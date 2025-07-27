@@ -1,18 +1,18 @@
 #ifndef HARDWARE_MANAGER_HPP
 #define HARDWARE_MANAGER_HPP
 
-#include "hardware/gpio_pin/gpio_pin.hpp"
+#include "hardware_rp2040/gpio_pin/gpio_pin.hpp"
 
 class HardwareManager
 {
    private:
-    GpioPin ledPin;
+    hardware_layer::GpioPin ledPin;
 
    public:
     HardwareManager();
     ~HardwareManager() = default;
     void run();
-    GpioPin& getLedPin();
+    hardware_layer::GpioPin& getLedPin();
 };
 
 #endif  // HARDWARE_MANAGER_HPP

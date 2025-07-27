@@ -6,6 +6,8 @@
 
 #include "hardware/gpio.h"
 
+namespace hardware_layer
+{
 class GpioPin : public IGpioPin
 {
    public:
@@ -66,4 +68,5 @@ class GpioPin : public IGpioPin
     bool get() override;
 };
 
+}  // namespace hardware_layer
 #endif  // GPIO_PIN_HPP

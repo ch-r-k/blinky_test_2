@@ -1,6 +1,8 @@
 #ifndef I_GPIO_PIN_HPP
 #define I_GPIO_PIN_HPP
 
+namespace hardware_layer
+{
 class IGpioPin
 {
    public:
@@ -9,5 +11,6 @@ class IGpioPin
 
     virtual bool get() = 0;
 };
+}  // namespace hardware_layer
 
 #endif  // I_GPIO_PIN_HPP

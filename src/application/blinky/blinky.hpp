@@ -5,18 +5,21 @@
 #ifndef BLINKY_HPP_
 #define BLINKY_HPP_
 
+namespace device_layer
+{
 class IUserIndication;
+}
 
 namespace app
 {
 class Blinky
 {
    private:
-    IUserIndication* userIndication = nullptr;
+    device_layer::IUserIndication* userIndication = nullptr;
 
    public:
     Blinky();
-    void setUserIndication(IUserIndication& init_user_indication);
+    void setUserIndication(device_layer::IUserIndication& init_user_indication);
     void run();
 };
 
