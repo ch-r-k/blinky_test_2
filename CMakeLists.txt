@@ -1,10 +1,29 @@
 ###########################################################################
 
 cmake_minimum_required (VERSION 3.17)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/arm_setup/cmake")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/platform")
 
-set(CMAKE_TOOLCHAIN_FILE ./arm_setup/cmake/arm-gcc-toolchain.cmake)
+set(TOOLCHAIN X86_GCC)
+set(TARGET_DEVICE X86)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/arm_setup/cmake")
+
+if("${TARGET_DEVICE}" STREQUAL "X86")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/src/hardware_x86/platform")
+elseif("${TARGET_DEVICE}" STREQUAL "RP2040")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/platform")
+else()
+    message(FATAL_ERROR "unsupported target: ${TARGET_DEVICE}")
+endif()
+
+if("${TOOLCHAIN}" STREQUAL "X86_GCC")
+    set(CMAKE_TOOLCHAIN_FILE ./arm_setup/cmake/x86-gcc-toolchain.cmake)  # ← use specific file!
+elseif("${TOOLCHAIN}" STREQUAL "ARM_GCC")
+    set(CMAKE_TOOLCHAIN_FILE ./arm_setup/cmake/arm-gcc-toolchain.cmake)
+else()
+    message(FATAL_ERROR "unsupported toolchain: ${TOOLCHAIN}")
+endif()
+
+
 set(PROJECT blinky)
 
 include(device)
@@ -18,9 +37,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(${PROJECT} LANGUAGES C CXX ASM)
 
-option(ENABLE_FOTA "Enable firmware update over the air" OFF)
-option(ENABLE_RTT "Enable SEGGER RTT for debugging" OFF)
-
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug CACHE STRING "")
 endif ()
@@ -32,16 +48,13 @@ endif()
 add_subdirectory(3d_party EXCLUDE_FROM_ALL)
 
 set(INCLUDE_DIRS
-    3d_party/cmsis_device_stm_l4/Include
-    3d_party/cmsis_5/CMSIS/Core/Include
-    3d_party/stm32l4xx_hal_driver/Inc
     src
     src/_common
 )
 
-
 ## Application source files
 # C++ source files
+## Application source files (device-independent)
 set(APP_CPP_SRCS
     src/system_manager.cpp
     src/main.cpp
@@ -51,25 +64,51 @@ set(APP_CPP_SRCS
     src/application/blinky/blinky.cpp
     src/device/device_manager.cpp
     src/device/user_indication/user_indication.cpp
-    src/hardware_rp2040/hardware_manager.cpp
-    src/hardware_rp2040/gpio_pin/gpio_pin.cpp
 )
+
+# Device-specific source files
+if("${TARGET_DEVICE}" STREQUAL "X86")
+    list(APPEND APP_CPP_SRCS
+        src/hardware_x86/hardware_manager.cpp
+        src/hardware_x86/gpio_pin/gpio_pin.cpp
+    )
+
+    add_compile_definitions(PLATFORM_X86)
+
+elseif("${TARGET_DEVICE}" STREQUAL "RP2040")
+    list(APPEND APP_CPP_SRCS
+        src/hardware_rp2040/hardware_manager.cpp
+        src/hardware_rp2040/gpio_pin/gpio_pin.cpp
+    )
+
+    add_compile_definitions(PLATFORM_RP2040)
+
+else()
+    message(FATAL_ERROR "unsupported target: ${TARGET_DEVICE}")
+endif()
+
 
 include_directories(${INCLUDE_DIRS})
 
 add_executable( ${PROJECT} 
                 ${APP_CPP_SRCS})
+# set linker options
+if("${TARGET_DEVICE}" STREQUAL "X86")
+   # do nothing
+elseif("${TARGET_DEVICE}" STREQUAL "RP2040")
+    target_link_libraries(${PROJECT} PRIVATE pico)
+
+    target_link_options(${PROJECT} PRIVATE "-L${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/linker")
+    
+    target_linker_script(${PROJECT} 
+        "${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/linker/linker.ld"
+    )
+
+else()
+    message(FATAL_ERROR "unsupported target: ${TARGET_DEVICE}")
+endif()
 
 target_include_directories(${PROJECT} PRIVATE include)
-
-# target_link_libraries(${PROJECT} PRIVATE stm32)  # You can uncomment this if you need to link with STM32-specific libraries
-
-target_link_libraries(${PROJECT} PRIVATE pico)
-
-target_link_options(${PROJECT} PRIVATE "-L${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/linker")
-target_linker_script(${PROJECT} 
-    "${CMAKE_CURRENT_LIST_DIR}/src/hardware_rp2040/linker/linker.ld"
-)
 
 set(WARNINGS
     all
