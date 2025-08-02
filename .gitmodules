@@ -16,3 +16,6 @@
 [submodule "3d_party/pico_sdk"]
 	path = 3d_party/pico_sdk
 	url = https://github.com/raspberrypi/pico-sdk
+[submodule "src/hardware_rp2040"]
+	path = src/hardware_rp2040
+	url = https://github.com/ch-r-k/hardware_rp2040
