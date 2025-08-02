@@ -69,7 +69,7 @@ set(APP_CPP_SRCS
 # Device-specific source files
 if("${TARGET_DEVICE}" STREQUAL "X86")
     list(APPEND APP_CPP_SRCS
-        src/hardware_x86/hardware_manager.cpp
+        src/hardware_manager/hardware_manager_x86.cpp
         src/hardware_x86/gpio_pin/gpio_pin.cpp
     )
 
@@ -77,7 +77,7 @@ if("${TARGET_DEVICE}" STREQUAL "X86")
 
 elseif("${TARGET_DEVICE}" STREQUAL "RP2040")
     list(APPEND APP_CPP_SRCS
-        src/hardware_rp2040/hardware_manager.cpp
+        src/hardware_manager/hardware_manager_rp2040.cpp
         src/hardware_rp2040/gpio_pin/gpio_pin.cpp
     )
 
