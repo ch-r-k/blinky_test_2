@@ -2,8 +2,8 @@
 
 cmake_minimum_required (VERSION 3.17)
 
-set(TOOLCHAIN X86_GCC)
-set(TARGET_DEVICE X86)
+set(TOOLCHAIN ARM_GCC)
+set(TARGET_DEVICE RP2040)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/arm_setup/cmake")
 
