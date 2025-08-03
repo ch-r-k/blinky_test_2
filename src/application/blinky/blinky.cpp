@@ -9,7 +9,7 @@
 //!
 #include "blinky.hpp"
 #include "device/user_indication/i_user_indication.hpp"
-#include <common.hpp>
+#include "device/software_timer/i_software_timer.hpp"
 
 // unnamed namespace for local definitions with internal linkage
 namespace
@@ -21,35 +21,34 @@ namespace
 namespace app
 {
 //............................................................................
-Blinky::Blinky()
+Blinky::Blinky(IUserIndication& user_indication, ISoftwareTimer& software_timer)
 {
-    // empty
+    iUserIndication = &user_indication;
+    iSoftwareTimer = &software_timer;
+    state = State::LED_OFF;
+    last_time = 0;
 }
 
 void Blinky::run()
 {
     for (;;)
     {
-        userIndication->reset();
-        for (int it = 0; it < 1000000; it++)
+        if (iSoftwareTimer->get() - last_time > 1000000)
         {
-            volatile int temp;
-            temp++;
-        }
-        userIndication->set();
-        for (int it = 0; it < 1000000; it++)
-        {
-            volatile int temp;
-            temp++;
+            if (state == State::LED_OFF)
+            {
+                state = State::LED_ON;
+                iUserIndication->reset();
+            }
+            else
+            {
+                state = State::LED_OFF;
+                iUserIndication->set();
+            }
+
+            last_time = iSoftwareTimer->get();
         }
     }
-}
-
-//............................................................................
-void Blinky::setUserIndication(
-    device_layer::IUserIndication& init_user_indication)
-{
-    userIndication = &init_user_indication;
 }
 
 }  // namespace app

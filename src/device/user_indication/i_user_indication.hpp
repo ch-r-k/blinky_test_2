@@ -5,8 +5,8 @@ namespace device_layer
 {
 class IUserIndication
 {
-   private:
    public:
+    ~IUserIndication() = default;
     virtual void set() = 0;
     virtual void reset() = 0;
 };

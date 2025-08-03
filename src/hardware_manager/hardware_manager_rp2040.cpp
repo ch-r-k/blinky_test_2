@@ -1,4 +1,11 @@
 #include "hardware_manager_rp2040.hpp"
+#include "pico/stdio.h"
+#include "hardware/regs/clocks.h"
+#include "hardware/regs/resets.h"
+#include "hardware/structs/clocks.h"
+#include "hardware/structs/resets.h"
+#include "hardware/structs/rosc.h"
+#include "hardware/structs/timer.h"
 
 uint8_t __attribute__((section(".boot2"))) boot2LoaderDatap[256] = {
     0x00, 0xb5, 0x32, 0x4b, 0x21, 0x20, 0x58, 0x60, 0x98, 0x68, 0x02, 0x21,
@@ -25,12 +32,12 @@ uint8_t __attribute__((section(".boot2"))) boot2LoaderDatap[256] = {
     0x74, 0xb2, 0x4e, 0x7a};
 
 HardwareManager::HardwareManager()
-    : ledPin(hardware_layer::GpioPin::Port::NONE, 25,
-             hardware_layer::GpioPin::Mode::GPIO_OUT,
-             hardware_layer::GpioPin::Pull::DOWN,
-             hardware_layer::GpioPin::Speed::NONE,
-             hardware_layer::GpioPin::Function::SIO)
+    : ledPin(GpioPin::Port::NONE, 25, GpioPin::Mode::GPIO_OUT,
+             GpioPin::Pull::DOWN, GpioPin::Speed::NONE, GpioPin::Function::SIO)
 {
+    timer_hw->dbgpause = 0x00;
 }
 
-hardware_layer::GpioPin& HardwareManager::getLedPin() { return ledPin; }
+IGpioPin& HardwareManager::getLedPin() { return ledPin; }
+
+ITimer& HardwareManager::getTimer() { return timer; }

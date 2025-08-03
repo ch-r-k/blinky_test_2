@@ -64,6 +64,7 @@ set(APP_CPP_SRCS
     src/application/blinky/blinky.cpp
     src/device/device_manager.cpp
     src/device/user_indication/user_indication.cpp
+    src/device/software_timer/software_timer.cpp
 )
 
 # Device-specific source files
@@ -79,6 +80,7 @@ elseif("${TARGET_DEVICE}" STREQUAL "RP2040")
     list(APPEND APP_CPP_SRCS
         src/hardware_manager/hardware_manager_rp2040.cpp
         src/hardware_rp2040/gpio_pin/gpio_pin.cpp
+        src/hardware_rp2040/timer/timer.cpp
     )
 
     add_compile_definitions(PLATFORM_RP2040)
