@@ -4,8 +4,11 @@
 #include <bits/c++config.h>
 #include <cstdint>
 #include "device/software_timer/i_software_timer.hpp"
-#include "hardware_abstraction/timer/i_timer.hpp"
 
+namespace hardware_layer
+{
+class ITimer;
+}
 namespace device_layer
 {
 using hardware_layer::ITimer;

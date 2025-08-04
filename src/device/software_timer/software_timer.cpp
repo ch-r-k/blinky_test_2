@@ -1,5 +1,6 @@
-#include "software_timer.hpp"
 #include <cstdint>
+#include "software_timer.hpp"
+#include "hardware_abstraction/timer/i_timer.hpp"
 
 namespace device_layer
 {
