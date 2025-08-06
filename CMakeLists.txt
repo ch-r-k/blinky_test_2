@@ -81,6 +81,8 @@ elseif("${TARGET_DEVICE}" STREQUAL "RP2040")
         src/hardware_manager/hardware_manager_rp2040.cpp
         src/hardware_rp2040/gpio_pin/gpio_pin.cpp
         src/hardware_rp2040/timer/timer.cpp
+        src/hardware_rp2040/interrupt_dispatcher/interrupt_dispatcher.cpp
+        src/hardware_rp2040/interrupt_dispatcher/interrupt_trampolines.cpp
     )
 
     add_compile_definitions(PLATFORM_RP2040)

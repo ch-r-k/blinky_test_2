@@ -6,6 +6,7 @@
 #define BLINKY_HPP_
 
 #include <cstdint>
+#include "device/software_timer/icb_software_timer.hpp"
 namespace device_layer
 {
 class IUserIndication;
@@ -17,7 +18,7 @@ using device_layer::IUserIndication;
 
 namespace app
 {
-class Blinky
+class Blinky : public IcbSoftwareTimer
 {
    private:
     enum class State
@@ -30,6 +31,8 @@ class Blinky
     ISoftwareTimer* iSoftwareTimer;
     State state;
     std::uint64_t last_time{0};
+
+    void notify() override;
 
    public:
     Blinky(IUserIndication& user_indication, ISoftwareTimer& software_timer);

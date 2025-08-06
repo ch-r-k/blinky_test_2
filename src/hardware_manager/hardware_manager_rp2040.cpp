@@ -1,4 +1,5 @@
 #include "hardware_manager_rp2040.hpp"
+#include "hardware_rp2040/interrupt_dispatcher/nvic_types.hpp"
 #include "pico/stdio.h"
 #include "hardware/regs/clocks.h"
 #include "hardware/regs/resets.h"
@@ -36,8 +37,14 @@ HardwareManager::HardwareManager()
              GpioPin::Pull::DOWN, GpioPin::Speed::NONE, GpioPin::Function::SIO)
 {
     timer_hw->dbgpause = 0x00;
+    intDispatcher.init();
+    intDispatcher.enable(hardware_layer::IntVectorNumber::TIMER_IRQ_0);
+    intDispatcher.registerIntAcknowledge(
+        &timer, hardware_layer::IntVectorNumber::TIMER_IRQ_0);
 }
 
 IGpioPin& HardwareManager::getLedPin() { return ledPin; }
 
 ITimer& HardwareManager::getTimer() { return timer; }
+
+IntDispatcher& HardwareManager::getIntDispatcher() { return intDispatcher; }

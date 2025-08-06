@@ -33,8 +33,9 @@ void Blinky::run()
 {
     for (;;)
     {
-        if (iSoftwareTimer->get() - last_time > 1000000)
+        if (iSoftwareTimer->get() - last_time > 2000000)
         {
+            iSoftwareTimer->setAlarm(iSoftwareTimer->get() + 1000000);
             if (state == State::LED_OFF)
             {
                 state = State::LED_ON;
@@ -50,5 +51,7 @@ void Blinky::run()
         }
     }
 }
+
+void Blinky::notify() {}
 
 }  // namespace app

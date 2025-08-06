@@ -5,6 +5,7 @@ ApplicationManager::ApplicationManager(DeviceManager& device_manager)
     : blinky(device_manager.getUserIndication(),
              device_manager.getSoftwareTimer())
 {
+    device_manager.getSoftwareTimer().setIcbSoftwareTimer(blinky);
 }
 
 ApplicationManager::~ApplicationManager() {}
