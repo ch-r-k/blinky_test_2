@@ -27,10 +27,18 @@ class Blinky : public IcbSoftwareTimer
         LED_ON = 1
     };
 
+    enum class MessageStatus
+    {
+        PENDING = 0,
+        TRIGGER
+    };
+
     IUserIndication* iUserIndication;
     ISoftwareTimer* iSoftwareTimer;
     State state;
     std::uint64_t last_time{0};
+    volatile MessageStatus timeout_message{MessageStatus::PENDING};
+    static constexpr std::uint32_t TIMEOUT_US{500'000};
 
     void notify() override;
 

@@ -31,11 +31,11 @@ Blinky::Blinky(IUserIndication& user_indication, ISoftwareTimer& software_timer)
 
 void Blinky::run()
 {
+    iSoftwareTimer->setAlarm(iSoftwareTimer->get() + TIMEOUT_US);
     for (;;)
     {
-        if (iSoftwareTimer->get() - last_time > 2000000)
+        if (timeout_message == MessageStatus::TRIGGER)
         {
-            iSoftwareTimer->setAlarm(iSoftwareTimer->get() + 1000000);
             if (state == State::LED_OFF)
             {
                 state = State::LED_ON;
@@ -47,11 +47,13 @@ void Blinky::run()
                 iUserIndication->set();
             }
 
-            last_time = iSoftwareTimer->get();
+            // set next timeout
+            iSoftwareTimer->setAlarm(iSoftwareTimer->get() + TIMEOUT_US);
+            timeout_message = MessageStatus::PENDING;
         }
     }
 }
 
-void Blinky::notify() {}
+void Blinky::notify() { timeout_message = MessageStatus::TRIGGER; }
 
 }  // namespace app
