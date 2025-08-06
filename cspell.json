@@ -27,7 +27,8 @@
         "qpcpp",
         "RASR",
         "RBAR",
-        "subscr"
+        "subscr",
+        "vect"
     ],
     "ignoreWords": [],
     "import": []

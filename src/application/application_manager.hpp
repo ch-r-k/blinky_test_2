@@ -2,15 +2,15 @@
 #define APPLICATION_MANAGER_HPP
 
 #include "blinky/blinky.hpp"
-#include "device_manager.hpp"
+#include "device/device_manager.hpp"
 
 class ApplicationManager
 {
    private:
-    APP::Blinky blinky;
+    app::Blinky blinky;
 
    public:
-    ApplicationManager(DeviceManager& deviceManager);
+    ApplicationManager(DeviceManager& device_manager);
     ~ApplicationManager();
 
     void start();

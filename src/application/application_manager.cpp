@@ -1,13 +1,13 @@
 #include "application_manager.hpp"
+#include "hardware_manager/hardware_manager_rp2040.hpp"
 
-ApplicationManager::ApplicationManager(DeviceManager& deviceManager)
+ApplicationManager::ApplicationManager(DeviceManager& device_manager)
+    : blinky(device_manager.getUserIndication(),
+             device_manager.getSoftwareTimer())
 {
-    blinky.setUserIndication(deviceManager.getUserIndication());
+    device_manager.getSoftwareTimer().setIcbSoftwareTimer(blinky);
 }
 
 ApplicationManager::~ApplicationManager() {}
 
-void ApplicationManager::start()
-{
-    blinky.run();
-}
+void ApplicationManager::start() { blinky.run(); }

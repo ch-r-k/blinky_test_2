@@ -5,22 +5,40 @@
 #ifndef BLINKY_HPP_
 #define BLINKY_HPP_
 
-#include "i_user_indication.hpp"
-
-namespace APP
+#include <cstdint>
+#include "device/software_timer/icb_software_timer.hpp"
+namespace device_layer
 {
+class IUserIndication;
+class ISoftwareTimer;
+}  // namespace device_layer
 
-class Blinky
+using device_layer::ISoftwareTimer;
+using device_layer::IUserIndication;
+
+namespace app
+{
+class Blinky : public IcbSoftwareTimer
 {
    private:
-    IUserIndication* userIndication = nullptr;
+    enum class State
+    {
+        LED_OFF = 0,
+        LED_ON = 1
+    };
+
+    IUserIndication* iUserIndication;
+    ISoftwareTimer* iSoftwareTimer;
+    State state;
+    std::uint64_t last_time{0};
+
+    void notify() override;
 
    public:
-    Blinky();
-    void setUserIndication(IUserIndication& initUserIndication);
+    Blinky(IUserIndication& user_indication, ISoftwareTimer& software_timer);
     void run();
 };
 
-}  // namespace APP
+}  // namespace app
 
 #endif  // BLINKY_HPP_
