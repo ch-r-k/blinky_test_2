@@ -8,8 +8,7 @@ DeviceManager::DeviceManager(HardwareManager& hardware_manager)
     : userIndication(hardware_manager.getLedPin()),
       softwareTimer(hardware_manager.getTimer())
 {
-    hardware_manager.getIntDispatcher().registerIntCallback(
-        &softwareTimer, IntVectorNumber::TIMER_IRQ_0);
+    hardware_manager.getTimer().setCallback(softwareTimer);
 }
 
 IUserIndication& DeviceManager::getUserIndication() { return userIndication; }

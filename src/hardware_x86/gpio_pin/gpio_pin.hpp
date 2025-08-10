@@ -56,11 +56,11 @@ class GpioPin : public IGpioPin
     Function function;
 
    public:
-    GpioPin(Port initPort, std::uint8_t initPin, Mode initMode, Pull initPull,
-            Speed initSpeed, Function initFunction);
+    GpioPin(Port init_port, std::uint8_t init_pin, Mode init_mode,
+            Pull init_pull, Speed init_speed, Function init_function);
     ~GpioPin() = default;
-    void configure(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
-                   Speed initSpeed, Function initFunction);
+    void configure(Port init_port, uint8_t init_pin, Mode init_mode,
+                   Pull init_pull, Speed init_speed, Function init_function);
     void set() override;
     void reset() override;
     bool get() override;

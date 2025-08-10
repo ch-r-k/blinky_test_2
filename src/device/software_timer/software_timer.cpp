@@ -19,9 +19,6 @@ void SoftwareTimer::setIcbSoftwareTimer(IcbSoftwareTimer& software_timer)
     icb_software_timer = &software_timer;
 }
 
-void SoftwareTimer::notifyInterruptService(void)
-{
-    icb_software_timer->notify();
-}
+void SoftwareTimer::notify(void) { icb_software_timer->notify(); }
 
 }  // namespace device_layer

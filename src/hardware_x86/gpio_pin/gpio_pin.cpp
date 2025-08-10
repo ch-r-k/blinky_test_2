@@ -5,22 +5,24 @@
 
 namespace hardware_layer
 {
-GpioPin::GpioPin(Port initPort, uint8_t initPin, Mode initMode, Pull initPull,
-                 Speed initSpeed, Function initFunction)
+GpioPin::GpioPin(Port init_port, uint8_t init_pin, Mode init_mode,
+                 Pull init_pull, Speed init_speed, Function init_function)
 {
-    configure(initPort, initPin, initMode, initPull, initSpeed, initFunction);
+    configure(init_port, init_pin, init_mode, init_pull, init_speed,
+              init_function);
 }
 
-void GpioPin::configure(Port initPort, uint8_t initPin, Mode initMode,
-                        Pull initPull, Speed initSpeed, Function initFunction)
+void GpioPin::configure(Port init_port, uint8_t init_pin, Mode init_mode,
+                        Pull init_pull, Speed init_speed,
+                        Function init_function)
 {
-    UNUSED(initPort);
-    UNUSED(initSpeed);
+    UNUSED(init_port);
+    UNUSED(init_speed);
 
-    pin = initPin;
-    mode = initMode;
-    pull = initPull;
-    function = initFunction;
+    pin = init_pin;
+    mode = init_mode;
+    pull = init_pull;
+    function = init_function;
 
     printf("gpio configure \n");
 }

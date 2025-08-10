@@ -72,6 +72,7 @@ if("${TARGET_DEVICE}" STREQUAL "X86")
     list(APPEND APP_CPP_SRCS
         src/hardware_manager/hardware_manager_x86.cpp
         src/hardware_x86/gpio_pin/gpio_pin.cpp
+        src/hardware_x86/timer/timer.cpp
     )
 
     add_compile_definitions(PLATFORM_X86)

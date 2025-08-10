@@ -17,6 +17,7 @@ add_compile_definitions(${DEVICE_DEFINES})
 set(COMPILE_FLAGS_LIST "${FEATURE_FLAGS}")
 set(LINKER_FLAGS_LIST
     -Wl,--gc-sections
+    -pthread
 )
 
 # Join lists into space-separated strings

@@ -36,6 +36,8 @@ void Blinky::run()
     {
         if (timeout_message == MessageStatus::TRIGGER)
         {
+            timeout_message = MessageStatus::PENDING;
+
             if (state == State::LED_OFF)
             {
                 state = State::LED_ON;
@@ -49,7 +51,6 @@ void Blinky::run()
 
             // set next timeout
             iSoftwareTimer->setAlarm(iSoftwareTimer->get() + TIMEOUT_US);
-            timeout_message = MessageStatus::PENDING;
         }
     }
 }

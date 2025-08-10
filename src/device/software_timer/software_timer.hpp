@@ -3,6 +3,7 @@
 
 #include <bits/c++config.h>
 #include <cstdint>
+#include "hardware_abstraction/timer/icb_timer.hpp"
 #include "i_software_timer.hpp"
 #include "icb_software_timer.hpp"
 #include "hardware_abstraction/interrupt_dispatcher/icb_interrupt_disp.hpp"
@@ -15,9 +16,10 @@ class ITimer;
 namespace device_layer
 {
 using hardware_layer::IcbIntDispatcher;
+using hardware_layer::IcbTimer;
 using hardware_layer::ITimer;
 
-class SoftwareTimer : public ISoftwareTimer, public IcbIntDispatcher
+class SoftwareTimer : public ISoftwareTimer, public hardware_layer::IcbTimer
 {
    public:
     explicit SoftwareTimer(ITimer& timer);
@@ -33,7 +35,7 @@ class SoftwareTimer : public ISoftwareTimer, public IcbIntDispatcher
     IcbSoftwareTimer* icb_software_timer{nullptr};
 
     // methods:
-    void notifyInterruptService(void) override;
+    void notify(void) override;
 };
 }  // namespace device_layer
 
